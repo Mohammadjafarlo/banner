@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Photo</title>
+     <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="icon" href="{% static 'icon.png' %}">
+<style>
+        @font-face {
+         font-family: Vazir;
+         font-style: normal;
+         font-weight: normal;
+         src: url({% static 'fonts/Vazir.eot' %});
+         src: url({% static 'fonts/Vazir.eot'%}) format('embedded-opentype'),
+         url({% static 'fonts/Vazir.woff2'%}) format('woff2'),
+         url({% static 'fonts/Vazir.woff'%}) format('woff'),
+         url({% static 'fonts/Vazir.ttf'%}) format('truetype');
+        }
+        @font-face {
+         font-family: Vazir;
+         font-style: normal;
+         font-weight: bold;
+         src: url({% static 'fonts/Vazir-Bold.eot'%});
+         src: url({% static 'fonts/Vazir-Bold.eot'%}) format('embedded-opentype'),
+         url({% static 'fonts/Vazir-Bold.woff2'%}) format('woff2'),
+         url({% static 'fonts/Vazir-Bold.woff'%}) format('woff'),
+         url({% static 'fonts/Vazir-Bold.ttf'%}) format('truetype');
+        }
+
+
+        body,h3,a,html{
+        font-family: 'Vazir', Arial, sans-serif;
+        font-weight:normal;
+        }
+
+    </style>
+</head>
+<body>
+    <button data-bs-toggle="collapse" data-bs-target="#demo">آپلود تصویر</button>
+
+<div id="demo" class="collapse">
+
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    </div>
+
+    </body>
+</html>

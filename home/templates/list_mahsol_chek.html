@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>لیست محصولات چک</title>
+</head>
+<body>
+    <h1>لیست محصولات چک</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <p>نوع فایل: {{ item.file_type }}</p>
+                <p>مناسبت محصول: {{ item.monasebat_mahsol }}</p>
+                <p>ولادت یا شهادت: {{ item.veladat_or_shahadat }}</p>
+                <p>تصویر پیش‌نمایش:</p>
+                <img src="{{ item.image_preview.url }}" alt="تصویر پیش‌نمایش" width="100">
+                <p>لایه باز:</p>
+                <a href="{{ item.laye_baz.url }}">دانلود فایل لایه باز</a>
+                <br>
+                <a href="../approve_mahsol_chek/{{ item.pk }} ">تأیید</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+</body>
+</html>

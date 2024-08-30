@@ -1,0 +1,26 @@
+/* برای مخفی کردن دایره‌های پیش‌فرض لیست‌ها در هنگام نمایش ارورها */
+ul.errorlist {
+    list-style-type: none;  /* حذف دایره پیش‌فرض */
+    padding: 0;
+    margin: 0;
+}
+
+ul.errorlist li {
+    display: inline;  /* نمایش خطاها در یک خط */
+    color: red;  /* تغییر رنگ متن به قرمز برای نمایش خطاها */
+    margin-left: 5px;
+}
+
+.text-danger {
+    color: red; /* رنگ متن خطاها */
+    display: inline-flex;
+}
+
+.bi-exclamation-circle {
+    color: red; /* رنگ آیکون خطاها */
+    margin-left: 10px;
+}
+
+.error-text {
+    display: inline; /* نمایش خطاها در یک خط */
+}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block head %}
+    <link href="{% static 'css/register.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+        <script>
+        function convertPersianToEnglish(input) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            let output = input;
+
+            for (let i = 0; i < persianNumbers.length; i++) {
+                const regex = new RegExp(persianNumbers[i], 'g');
+                output = output.replace(regex, englishNumbers[i]);
+            }
+
+            return output;
+        }
+
+        function handleInputChange(event) {
+            event.target.value = convertPersianToEnglish(event.target.value);
+        }
+    </script>
+<div class="container-fluid">
+    <h1>ثبت نام</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <!-- نمایش فیلدهای فرم بدون نمایش خطاها -->
+        <div class="row">
+            {% for field in form %}
+                <div class="mb-3{% if field.label == 'نام' %} col-6{% elif field.label == 'نام خانوادگی' %} col-6{% elif field.label == 'ایجاد رمز عبور' %} col-6{% elif field.label == 'تکرار رمز عبور' %} col-6{% endif %}">
+                    <label for="{{ field.id_for_label }}" class="mb-1">{{ field.label }}</label>
+                    {% if field.label == 'شماره تلفن' %}
+                          <div class="input-group " dir="ltr">
+                            <span class="input-group-text">+98</span>
+                        {{ field }}
+                          </div>
+                    {% else %}
+                    {{ field }}
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="mt-2 text-danger">
+                            <i class="bi bi-exclamation-circle d-inline-block"></i>
+                            <span class="error-text">{{ field.errors|safe }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- نمایش ارورهای فرم در انتهای فرم -->
+        {% if form.non_field_errors %}
+            <div class="container-fluid pe-2 ps-2">
+                {% for error in form.non_field_errors %}
+                    <div class="mt-2 text-danger">
+                        <i class="bi bi-exclamation-circle d-inline-block"></i>
+                        <span class="error-text">{{ error|safe }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">ثبت نام</button>
+    </form>
+    <a href="{% provider_login_url 'google' %}">ثبت‌نام</a>
+</div>
+{% endblock %}

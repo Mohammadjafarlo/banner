@@ -1,0 +1,765 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'css/generate.css' %}" rel="stylesheet">
+    <style>
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Lyon';
+    src: url({% static 'font/lyon.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Almas';
+    src: url({% static 'font/Almas.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Yekan';
+    src: url({% static 'font/Yekan.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Sayeh';
+    src: url({% static 'font/Mj_Sayeh.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'B Titr';
+    src: url({% static 'font/B Titr.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'yakan_med';
+    src: url({% static 'font/yakan_med.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Entezar1';
+    src: url({% static 'font/Entezar1.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'ekhtiar';
+    src: url({% static 'font/ekhtiar.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'aviny';
+    src: url({% static 'font/aviny.ttf' %}) format('truetype'); /* فرمت فونت را مطابق با فایل خود تنظیم کنید */
+}
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <form method="post" action="">
+            {% csrf_token %}
+            <!-- مداح -->
+            <div class="row mb-3 ">
+                <div class="col-12">
+                    <p class="fw-bold">مداح</p>
+                </div>
+                        <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLetter()" type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInput" name="madah" placeholder="مداح" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 mt-2 col-6 text-center p-0 " style="height: 30px; border-right:black ">
+                            <p class="d-inline-block mb-2 fs-6" >رنگ :</p>
+                            <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_madah" value="{{ default_hex_color_madah }}">
+                        </div>
+
+
+                        <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+                            <p class="d-inline-block mb-2">اندازه:</p>
+                            <input type="number" style="width: 70%" class="form-control  d-inline-block h-100" name="font_size_madah" value="{{ font_size_madah }}">
+                        </div>
+<div class="mt-2 col-12">
+    <p class="d-inline-block">فونت :</p>
+    <fieldset class="d-inline-block">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah1" value="B titr"{% if font_name_madah == 'B titr' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-madah1">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah2" value="yakan_bold"{% if font_name_madah == 'yakan_bold' %} checked {% endif %} >
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-madah2">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah3" value="Lyon"{% if font_name_madah == 'Lyon' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-madah3">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah4" value="Almas"{% if font_name_madah == 'Almas' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-madah4">فونت</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah5" value="Mj_Sayeh"{% if font_name_madah == 'Mj_Sayeh' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-madah5">فونت</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah6" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-madah6">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah7" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-madah7">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah" id="font_name-madah8" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-madah8">فونت</label>
+    </div>
+    </fieldset>
+</div>
+
+<script>
+    function addLetter() {
+        const textInput = document.getElementById('textInput');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInput');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-madah"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-madah"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+            </div>
+{% if font_size_madah2 %}
+    <div class="row mb-3 ">
+                <div class="col-12">
+                    <p class="fw-bold">مداح دوم</p>
+                </div>
+                        <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLetterMadah2()  " type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInputMadah2" name="madah2" placeholder="مداح دوم" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 mt-2 col-6 text-center p-0 " style="height: 30px; border-right:black ">
+                            <p class="d-inline-block mb-2 fs-6" >رنگ :</p>
+                            <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_madah2" value="{{ image.default_hex_color_madah2 }}">
+                        </div>
+
+
+                        <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+                            <p class="d-inline-block mb-2">اندازه:</p>
+                            <input type="number" style="width: 70%" class="form-control  d-inline-block h-100" name="font_size_madah2" value="{{ font_size_madah2 }}">
+                        </div>
+<div class="mt-2 col-12">
+    <p class="d-inline-block">فونت :</p>
+    <fieldset class="d-inline-block">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah21" value="B Titr"{% if image.font_name_madah2 == 'B titr' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-madah21">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah22" value="yakan_bold"{% if image.font_name_madah2 == 'yakan_bold' %} checked {% endif %} >
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-madah22">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah23" value="Lyon"{% if image.font_name_madah2 == 'Lyon' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-madah23">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah24" value="Almas"{% if image.font_name_madah2 == 'Almas' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-madah24">فونت</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah25" value="Mj_Sayeh"{% if image.font_name_madah2 == 'Mj_Sayeh' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-madah25">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah26" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-madah26">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah27" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-madah27">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-madah2" id="font_name-madah28" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-madah28">فونت</label>
+    </div>
+    </fieldset>
+</div>
+
+<script>
+    function addLetterMadah2() {
+        const textInput = document.getElementById('textInputMadah2');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInputMadah2');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-madah2"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-madah2"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+            </div>
+{% endif %}
+<!-- سخنران -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="fw-bold">سخنران</p>
+    </div>
+                        <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLettersokhanran()  " type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInputsokhanran" name="sokhanran" placeholder="سخنران" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+    <div class="col-md-2 mt-2 col-6 text-center p-0" style="height: 30px; border-right:black ">
+        <p class="d-inline-block mb-2 fs-6">رنگ :</p>
+        <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_sokhanran" value="{{ default_hex_color_sokhanran }}">
+    </div>
+    <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+        <p class="d-inline-block mb-2">اندازه:</p>
+        <input type="number" style="width: 70%" class="form-control d-inline-block h-100" name="font_size_sokhanran" value="{{ font_size_sokhanran }}">
+    </div>
+    <div class="mt-2 col-12">
+        <p class="d-inline-block">فونت :</p>
+        <fieldset class="d-inline-block">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran1" value="B Titr"{% if font_name_sokhanran == 'B titr' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-sokhanran1">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran2" value="yakan_bold"{% if font_name_sokhanran == 'yakan_bold' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-sokhanran2">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran3" value="Lyon"{% if font_name_sokhanran == 'Lyon' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-sokhanran3">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran4" value="Almas"{% if font_name_sokhanran == 'Almas' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-sokhanran4">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran5" value="Mj_Sayeh"{% if font_name_sokhanran == 'Mj_Sayeh' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-sokhanran5">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran6" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-sokhanran6">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran7" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-sokhanran7">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-sokhanran" id="font_name-sokhanran8" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-sokhanran8">فونت</label>
+    </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- Script for سخنران -->
+<script>
+    function addLettersokhanran() {
+        const textInput = document.getElementById('textInputsokhanran');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInputsokhanran');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-sokhanran"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-sokhanran"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+
+
+            <!-- آدرس -->
+<!-- آدرس -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="fw-bold">آدرس</p>
+    </div>
+                        <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLetteraddres()" type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInputaddres" name="addres" placeholder="آدرس" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+    <div class="col-md-2 mt-2 col-6 text-center p-0" style="height: 30px; border-right:black ">
+        <p class="d-inline-block mb-2 fs-6">رنگ :</p>
+        <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_addres" value="{{ default_hex_color_addres }}">
+    </div>
+    <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+        <p class="d-inline-block mb-2">اندازه:</p>
+        <input type="number" style="width: 70%" class="form-control d-inline-block h-100" name="font_size_addres" value="{{ font_size_addres }}">
+    </div>
+        <div class="mt-2 col-12">
+        <p class="d-inline-block">فونت :</p>
+        <fieldset class="d-inline-block">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres1" value="B Titr"{% if font_name_addres == 'B titr' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-addres1">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres2" value="yakan_bold"{% if font_name_addres == 'yakan_bold' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-addres2">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres3" value="Lyon"{% if font_name_addres == 'Lyon' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-addres3">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres4" value="Almas"{% if font_name_addres == 'Almas' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-addres4">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres5" value="Mj_Sayeh"{% if font_name_addres == 'Mj_Sayeh' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-addres5">فونت</label>
+            </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres6" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-addres6">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres7" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-addres7">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-addres" id="font_name-addres8" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-addres8">فونت</label>
+    </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- Script for آدرس -->
+<script>
+    function addLetteraddres() {
+        const textInput = document.getElementById('textInputaddres');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInputaddres');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-addres"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-addres"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="fw-bold">زمان</p>
+    </div>
+                        <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLetterzaman()  " type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInputzaman" name="zaman" placeholder="زمان" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+    <div class="col-md-2 mt-2 col-6 text-center p-0" style="height: 30px; border-right:black ">
+        <p class="d-inline-block mb-2 fs-6">رنگ :</p>
+        <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_zaman" value="{{ default_hex_color_zaman }}">
+    </div>
+    <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+        <p class="d-inline-block mb-2">اندازه:</p>
+        <input type="number" style="width: 70%" class="form-control d-inline-block h-100" name="font_size_zaman" value="{{ font_size_zaman }}">
+    </div>
+    <div class="mt-2 col-12">
+        <p class="d-inline-block">فونت :</p>
+        <fieldset class="d-inline-block">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman1" value="B Titr"{% if font_name_zaman == 'B titr' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-zaman1">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman2" value="yakan_bold"{% if font_name_zaman == 'yakan_bold' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-zaman2">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman3" value="Lyon"{% if font_name_zaman == 'Lyon' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-zaman3">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman4" value="Almas"{% if font_name_zaman == 'Almas' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-zaman4">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman5" value="Mj_Sayeh"{% if font_name_zaman == 'Mj_Sayeh' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-zaman5">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman6" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-zaman6">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman7" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-zaman7">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-zaman" id="font_name-zaman8" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-zaman8">فونت</label>
+    </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- Script for زمان -->
+<script>
+    function addLetterzaman() {
+        const textInput = document.getElementById('textInputzaman');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInputzaman');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-zaman"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-zaman"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+
+
+            <!-- اسم هیات -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p class="fw-bold">اسم هیأت</p>
+    </div>
+                            <div class="col-md-7  col-12 h-100 "  dir="ltr">
+                            <div class="input-group w-100">
+                              <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary h-100 rounded-0 rounded-start-3" onclick="addLetteresmheyat()  " type="button">کشیـــــدن</button>
+                              </div>
+                              <input type="text" dir="rtl" class="form-control text-center" id="textInputesmheyat" name="esmheyat" placeholder="اسم هیئت" aria-label="" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+    <div class="col-md-2 mt-2 col-6 text-center p-0" style="height: 30px; border-right:black ">
+        <p class="d-inline-block mb-2 fs-6">رنگ :</p>
+        <input type="color" style="width: 65%" class="form-control d-inline-block h-100" name="c_esmheyat" value="{{ default_hex_color_esmheyat }}">
+    </div>
+    <div class="col-md-3 mt-2 col-6 text-center p-0" style="height: 30px">
+        <p class="d-inline-block mb-2">اندازه:</p>
+        <input type="number" style="width: 70%" class="form-control d-inline-block h-100" name="font_size_esmheyat" value="{{ font_size_esmheyat }}">
+    </div>
+    <div class="mt-2 col-12">
+        <p class="d-inline-block">فونت :</p>
+        <fieldset class="d-inline-block">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-heyat1" value="B Titr"{% if font_name_esmheyat == 'B titr' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'B Titr'" for="font_name-heyat1">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-heyat2" value="yakan_bold"{% if font_name_heyat == 'yakan_bold' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'yakan_med'" for="font_name-heyat2">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-heyat3" value="Lyon"{% if font_name_heyat == 'Lyon' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'lyon'" for="font_name-heyat3">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-heyat4" value="Almas"{% if font_name_heyat == 'Almas' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'Almas'" for="font_name-heyat4">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-heyat5" value="Mj_Sayeh"{% if font_name_heyat == 'Mj_Sayeh' %} checked {% endif %}>
+                <label class="form-check-label fw-bold fs-6" style="font-family: 'sayeh'" for="font_name-heyat5">فونت</label>
+            </div>
+            <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-esmheyat6" value="Entezar1"{% if font_name_madah == 'Entezar1' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'Entezar1'" for="font_name-esmheyat6">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-esmheyat7" value="ekhtiar"{% if font_name_madah == 'ekhtiar' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'ekhtiar'" for="font_name-esmheyat7">فونت</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input border-2 border-secondary" type="radio" name="font_name-esmheyat" id="font_name-esmheyat8" value="aviny"{% if font_name_madah == 'aviny' %} checked {% endif %}>
+        <label class="form-check-label fw-bold fs-6" style="font-family: 'aviny'" for="font_name-esmheyat8">فونت</label>
+    </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- Script for اسم هیات -->
+<script>
+    function addLetteresmheyat() {
+        const textInput = document.getElementById('textInputesmheyat');
+        const letter = "ـ"; // به جای "حرف" کاراکتر مورد نظر را وارد کنید
+                    // مکان فعلی مکان‌نما در فیلد ورودی
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+
+            // اضافه کردن متن به محل قرارگیری مکان‌نما
+            textInput.value = textInput.value.substring(0, startPos) + letter + textInput.value.substring(endPos);
+
+            // تنظیم مجدد مکان‌نما بعد از اضافه شدن متن
+            textInput.selectionStart = textInput.selectionEnd = startPos + letter.length;
+        textInput.focus(); // فوکوس مجدد بر روی فیلد ورودی
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    const textInput = document.getElementById('textInputesmheyat');
+
+
+    function updateFont() {
+        const selectedRadio = document.querySelector('input[name="font_name-esmheyat"]:checked');
+        if (selectedRadio) {
+            const selectedFont = selectedRadio.nextElementSibling.style.fontFamily;
+            textInput.style.fontFamily = selectedFont;
+
+            // Adjust font size based on selected font
+            if (selectedFont.includes('sayeh')) {
+                textInput.style.fontSize = '2em'; // Increase font size for Mj_Sayeh
+                textInput.style.height = '50px'; // Adjust height
+            } else if (selectedFont.includes('Almas')) {
+                textInput.style.fontSize = '0.9em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            }else if (selectedFont.includes('aviny')) {
+                textInput.style.fontSize = '1.3em'; // Decrease font size for Almas
+                textInput.style.height = '50px'; // Adjust height
+            } else {
+                textInput.style.fontSize = ''; // Reset font size
+                textInput.style.height = '45px'; // Default height
+            }
+        }
+    }
+
+    // Set initial font based on the checked radio button
+    updateFont();
+
+    // Add event listeners to update font on radio button change
+    document.querySelectorAll('input[name="font_name-esmheyat"]').forEach(function(element) {
+        element.addEventListener('change', updateFont);
+    });
+});
+
+</script>
+
+            <div class="d-grid gap-1 mt-5">
+
+            <button type="submit" class="btn btn-primary mb-5">ساخت تصویر در کمتر از 10 ثانیه</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

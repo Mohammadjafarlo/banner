@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'banners/1.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="central-body">
+        <img class="image-404" src="{% static '404_prev_ui1.png' %}" alt="404 Error">
+        <p class="text-light">صفحه مورد نظر یافت نشد ممکن آدرس صفحه را اشتباه وارد کرده باشید<br> و یا صفحه مورد نظر توسط مدیریت سایت به صورت موقت یا دائمی حذف شده باشد</p>
+        <a href="{% url 'home:home' %}" class="btn-go-home">برگشت به صفحه اصلی</a>
+    </div>
+    </div>
+{% endblock %}

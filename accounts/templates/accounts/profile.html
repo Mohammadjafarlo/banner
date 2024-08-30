@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <!-- بخش تصویر پروفایل -->
+            <div class="card mb-4">
+                 <img src="{% static 'profile_image/'|add:user.profile_picture %}" class="card-img-top rounded-circle" alt="Profile Picture">
+                <div class="card-body">
+                    <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
+                    <p class="card-text">{{ user.username }}</p>
+                    <p class="card-text">{{ user.phone_number }}</p>
+                    <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary">ویرایش پروفایل</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- سایر اطلاعات پروفایل -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">اطلاعات پروفایل</h5>
+                    <dl class="row">
+                        <dt class="col-sm-3">نام:</dt>
+                        <dd class="col-sm-9">{{ user.first_name }}</dd>
+                        <dt class="col-sm-3">نام خانوادگی:</dt>
+                        <dd class="col-sm-9">{{ user.last_name }}</dd>
+                        <dt class="col-sm-3">نام کاربری:</dt>
+                        <dd class="col-sm-9">{{ user.username }}</dd>
+                        <dt class="col-sm-3">شماره موبایل:</dt>
+                        <dd class="col-sm-9">{{ user.phone_number }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+    <h1 class="mb-5">اثر های شما</h1>
+                 {% for object in objects %}
+                     <div class="col-3">
+              <img src="../../static/images_asli/{{ object.shenaseh }}.jpg" alt="" class="rounded-3         border-2 border border-secondary" width="100%">
+                     </div>
+                {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

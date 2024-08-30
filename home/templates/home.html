@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>غدیر گراف</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+{% endblock %}
+{% block content %}
+
+<div class="container container-fluid1 mt-4">
+    <div style="width: 95%" class="m-auto">
+        <h5 class="me-2"><b>غدیر گراف</b> رسانه اشتراک گذاری آثار مذهبی</h5>
+
+    <div class="row mt-3">
+        <div class="col-lg-8 p-0">
+            <div id="demo" class="carousel slide " data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                </div>
+                <div class="carousel-inner carsoel">
+                    {% for i in vitrin %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{i.image.url}}" alt="ویترین" class="d-block w-100">
+                    </div>
+                    {% endfor %}
+                </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+            </div>
+        </div>
+        {% comment %} <div class="col-1"></div> {% endcomment %}
+        <div class="col-lg-4 ">
+            <div class="row akhrin_monasebat">
+                {% for object in latest_for_objects %}
+                <div class=" col-4 m-auto  d-inline-block  ">
+                    <div class="card monasebat rounded-5 border-0 p-1" style="{% if forloop.last %}background-color: #892380 !important;{% endif %}">
+                        <div class="card-body m-auto mt-3 text-center{% if forloop.last %} text-light{% endif %} p-0">
+                          <h5 class="card-title font-title">{{ object.title }}</h5>
+                            <p class="card-text" style="margin: auto">
+                                <p class="m-auto" style="font-size: 10px">{{ object.mah_monasebat }}</p>
+                                <p class="mt-1" style="font-size: 17px">{{ object.roz_monasebat }}</p>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            <div class="row text-center">
+                {% for i in last_tuo_tarhay_akharin_monasebat%}
+                    <div class="  col-6 mt-4 p-0   text-center">
+                    <img class=" rounded-5 tarh-hay-monasebat-akhar" style='width:95%' src="{{ i.image.url }}"/>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

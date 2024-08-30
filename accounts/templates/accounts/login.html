@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'css/register.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+    <h1>ورود</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+                <!-- نمایش فیلدهای فرم بدون نمایش خطاها -->
+
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="mb-1">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+
+        <!-- نمایش ارورهای فرم در انتهای فرم -->
+        {% if form.errors %}
+            <div class="container-fluid pe-2 ps-2">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{ error | safe }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    <input type="submit" value="login">
+    </form>
+</div>
+{% endblock %}

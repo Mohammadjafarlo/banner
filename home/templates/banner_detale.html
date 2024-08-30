@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'w3css.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    {# like form #}
+    <div class="container me-auto m-auto row">
+    <form id="like-form"  method="post" action="{% url 'home:like_product' object.shenaseh %}">
+        {% csrf_token %}
+        <button type="button" class="w-100 btn btn-outline-light " id="like-button">
+            {% if user_likes %}
+                <i class="bi bi-heart-fill text-danger"></i>
+            {% else %}
+                <i class="bi bi-heart text-danger" ></i>
+            {% endif %}
+        </button>
+
+    </form>
+    <p>Likes: <span id="likes-count">{{ object.likes.count }}</span></p>
+    <div class="row text-center">
+    <div class="col-xl-6 col-12 text-center mb-3">
+    <img src="/static/images_asli/{{ object.shenaseh }}.jpg" class="rounded-2 " style="width: 400px">
+        <div class="d-grid">
+    <a href="{% url 'home:generate_photos' object.shenaseh %}" class="btn btn-primary btn-block mt-3">ساخت بنر با این طرح </a><br>
+        </div>
+    </div>
+    {% if object.to_madah %}
+
+
+    <div class="col-xl-6 col-12 text-center mb-3">
+    <img src="/static/images_asli/{{ object.two_madah_True.shenaseh }}.jpg" class="rounded-2" style="width: 400px">
+        <div class="d-grid">
+            <a href="{% url 'home:generate_photos' object.two_madah_True.shenaseh %}" class="btn btn-primary btn-block mt-3">ساخت بنر <b>دو مداحه</b> با این طرح </a><br>
+        </div>    </div>
+        {% endif %}
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#like-button').click(function() {
+                var form = $('#like-form');
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        if (response.liked) {
+                            $('#like-button').html('<i class="bi bi-heart-fill text-danger"></i>');
+                        } else {
+                            $('#like-button').html('<i class="bi bi-heart text-danger"></i>');
+                        }
+                        $('#likes-count').text(response.likes_count);
+                    },
+                    error: function(response) {
+                        alert(response.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+    {# end like form #}
+    </div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="icon" href="{% static 'icon_top.png' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css' %}">
+
+    <script src="{% static 'bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script>
+        window.onload = function() {
+            // بررسی می‌کند که آیا رفرش قبلاً انجام شده است یا خیر
+            if (!sessionStorage.getItem('refreshed')) {
+                sessionStorage.setItem('refreshed', 'true'); // ذخیره وضعیت رفرش
+                location.reload(); // رفرش صفحه
+            }
+        };
+    </script>
+    {% block head %}
+    {% endblock %}
+    <style>
+
+
+        @font-face {
+            font-family: yakan;
+            font-style: normal;
+            font-weight:normal;
+            src: url({% static 'font/Qs_Iranyekan.ttf' %}) format('truetype');
+        }
+        @font-face {
+            font-family: yakan;
+            font-style: normal;
+            font-weight:bold;
+            src: url({% static 'font/Qs_Iranyekan extrablack.ttf' %}) format('truetype');
+        }
+        @font-face {
+            font-family: Nastaliq;
+            font-style: normal;
+            font-weight:bold;
+            src: url({% static 'font/Iran.Nastaliq.1.0.ttf' %}) format('truetype');
+        }
+        body, h3, a, html {
+            font-family: 'yakan', Arial, sans-serif;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body dir="rtl">
+
+<nav class="navbar navbar-expand-xl bg-light navbar-dark sticky-top header w-100 ">
+    <div class="container-fluid">
+        <a href="{% url 'home:home' %}"><img src="{% static 'wm_Nastaliq (6).png' %}" width="40px" class="pb-2 ms-3"></a>
+        <a class="nav-link btn-nav fs-6 btn btn-outline-secondary p-2" href="{% url 'home:Titles' %}">بنر ساز غدیر گراف&nbsp;<span style="font-size: 10px; font-weight: normal" class="badge rounded-pill bg-danger">جدید</span></a>
+
+        <button class="navbar-toggler bg-dark-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav padding-right">
+                <li class="nav-item">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-secondary disabled text-dark" href="#">تایپو گرافی &nbsp;<span style="font-size: 10px; font-weight: normal" class="badge rounded-pill bg-warning">به زودی</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-secondary disabled text-dark" href="#">بنر پشت منبر &nbsp;<span style="font-size: 10px; font-weight: normal" class="badge rounded-pill bg-warning">به زودی</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-secondary text-dark" href="#">تماس با ما </a>
+                </li>
+                <hr class="m-auto">
+            </ul>
+            <ul class="navbar-nav navbar-nav1 me-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item m-auto">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-danger p-2" href="{% url 'accounts:logout' %}">خروج از حساب</a>
+                </li>
+                <li class="nav-item m-auto">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-primary p-2" href="{% url 'accounts:profile' %}">پروفایل شما</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link btn-nav m-auto fs-6 btn btn-outline-primary" href="{% url 'accounts:login'%}"> ورود </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-nav fs-6 btn btn-outline-primary" href="{% url 'accounts:register' %}"> ثبت نام </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+{% if messages %}
+    {% for msg in messages %}
+
+{% if 'l_r' in msg.tags.strip %}
+
+            <!-- The Modal -->
+            <div class="modal fade" dir="rtl" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                      <button type="button" class="btn-close ms-1" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title">{{ msg }}</h5>
+
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary" >ورود</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary">ثبت نام</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+        {% else %}
+        <div class="container-fluid p-2 mt-3">
+        <p class="alert alert-{{ msg.tags }}">{{ msg }}</p>
+        </div>
+        {% endif %}
+{% endfor %}
+{% endif %}
+
+{% block content %}
+{% endblock %}
+        <button id="modal" style="display: none" data-bs-toggle="modal" data-bs-target="#myModal"></button>
+    <script>
+        window.onload = function() {
+            document.getElementById("modal").click();
+        };
+    </script>
+</body>
+</html>
