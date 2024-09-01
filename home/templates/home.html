@@ -38,8 +38,8 @@
         <div class="col-lg-4 ">
             <div class="row akhrin_monasebat">
                 {% for object in latest_for_objects %}
-                <div class=" col-4 m-auto  d-inline-block  ">
-                    <div class="card monasebat rounded-5 border-0 p-1" style="{% if forloop.last %}background-color: #892380 !important;{% endif %}">
+                <div class=" col-4 m-auto  d-inline-block p-2 ">
+                    <div class="card monasebat rounded-4 w-100 border-0 p-1" style="{% if forloop.last %}background-color: #892380 !important;{% endif %}">
                         <div class="card-body m-auto mt-3 text-center{% if forloop.last %} text-light{% endif %} p-0">
                           <h5 class="card-title font-title">{{ object.title }}</h5>
                             <p class="card-text" style="margin: auto">
@@ -54,8 +54,8 @@
                 </div>
             <div class="row text-center">
                 {% for i in last_tuo_tarhay_akharin_monasebat%}
-                    <div class="  col-6 mt-4 p-0   text-center">
-                    <img class=" rounded-5 tarh-hay-monasebat-akhar" style='width:95%' src="{{ i.image.url }}"/>
+                    <div class="  col-6 mt-1 p-1   text-center">
+                    <img class=" rounded-4 tarh-hay-monasebat-akhar" style='width:95%' src="{{ i.image.url }}"/>
                     </div>
                 {% endfor %}
             </div>
