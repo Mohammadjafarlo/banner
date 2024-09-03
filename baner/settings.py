@@ -115,8 +115,11 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-STATIC_URL = '/static/'
+
+STATIC_URL = 'https://mohammadjafarlo.github.io/GhadirGraphStatics/'
+
 STATICFILES_DIRS = [
     BASE_DIR/'static',
 ]

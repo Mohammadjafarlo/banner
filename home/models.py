@@ -159,9 +159,9 @@ class imagesTowMadah(models.Model):
     title = models.CharField(max_length=50, null=True)
 
     shenaseh = models.IntegerField(default=generate, blank=True, null=True)
-    image_asli = models.ImageField(upload_to=RenameFile('static/images_asli/'))
-    image_kham = models.ImageField(upload_to=RenameFile('static/images_kham/'))
-    leye_baz = models.FileField(upload_to=RenameFile('static/layebaz/'), null=True, blank=True)
+    image_asli = models.ImageField(upload_to=RenameFile('media/images_asli/'))
+    image_kham = models.ImageField(upload_to=RenameFile('media/images_kham/'))
+    leye_baz = models.FileField(upload_to=RenameFile('media/layebaz/'), null=True, blank=True)
     Price_virtual = models.DecimalField(max_digits=7, decimal_places=0, default=300000)
     Price_chap = models.DecimalField(max_digits=7, decimal_places=0, default=700000)
 
@@ -220,9 +220,9 @@ class images(models.Model):
     title = models.CharField(max_length=50 ,null=True)
 
     shenaseh = models.IntegerField(default=generate, blank=True, null=True)
-    image_asli = models.ImageField(upload_to=RenameFile('static/images_asli/'))
-    image_kham = models.ImageField(upload_to=RenameFile('static/images_kham/'))
-    leye_baz = models.FileField(upload_to=RenameFile('static/layebaz/'), null=True, blank=True)
+    image_asli = models.ImageField(upload_to=RenameFile('media/images_asli/'))
+    image_kham = models.ImageField(upload_to=RenameFile('media/images_kham/'))
+    leye_baz = models.FileField(upload_to=RenameFile('media/layebaz/'), null=True, blank=True)
     to_madah = models.BooleanField(default=False)
     Price_virtual = models.DecimalField(max_digits=7, decimal_places=0 , default=300000)
     Price_chap = models.DecimalField(max_digits=7, decimal_places=0 , default=700000)
@@ -291,7 +291,7 @@ class generated_image(models.Model):
     shenaseh = models.IntegerField(blank=True, null=True)
     Price_virtual = models.DecimalField(max_digits=7, decimal_places=0, default=300000)
     Price_chap = models.DecimalField(max_digits=7, decimal_places=0, default=700000)
-    image = models.ImageField(upload_to='static/image_with_watermark/')
+    image = models.ImageField(upload_to='media/image_with_watermark/')
 
 class history_banner(models.Model):
     user = models.CharField(max_length=100)
