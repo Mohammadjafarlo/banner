@@ -1,0 +1,27 @@
+.header{
+    background: #f9f9f9;
+    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+
+}
+.btn-nav{
+    margin: 2px 2px 2px 2px;
+    color: #000;
+
+}
+.btn-nav:hover{
+    color: #fff;
+
+}
+
+.btn-outline-secondary:hover{
+    background-color: rgba(7, 7, 7, 0.34);
+}
+
+@media (max-width: 1000px) {
+    .navbar-nav1{
+        margin-left: 25px;
+
+    }
+}

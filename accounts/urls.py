@@ -13,4 +13,8 @@ urlpatterns = [
     path('payment/', PaymentView.as_view(), name='payment'),
     path('verify_payment/', VerifyPaymentView.as_view(), name='verify_payment'),
     path('edit-profile/', EditProfileView.as_view(), name='edit_profile'),
+    path('Reset_password/', ForgotPasswordView.as_view(), name='Reset_password'),
+    path('verify_reset_pass/', VerifyCodeResetPassView.as_view(), name='verify_code_reset_pass'),
+    path('resend_verification_code/', ResendVerificationCodeView.as_view(), name='resend_verification_code'),
+
 ]

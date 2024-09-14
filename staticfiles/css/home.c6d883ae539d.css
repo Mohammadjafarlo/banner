@@ -1,0 +1,63 @@
+
+.padding-right{
+    padding-right: 10px!important;
+}
+.carousel2{
+    height: 400px;
+    width: 100%;
+    background: #0a53be;
+}
+
+.container-fluid1{
+    padding: 0
+}
+
+.carsoel{
+    border: 5px solid rgba(147, 147, 147, 0.61);
+    width: 100%;
+    border-radius: 14px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+}
+.carousel-control-prev {
+    left: 10px;  /* فاصله 1 پیکسل از چپ تصویر */
+
+}
+.carousel-control-next {
+    right: 10px;  /* فاصله 1 پیکسل از راست تصویر */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(91, 91, 91, 0.9);
+    border-radius: 50%;
+
+    width: 30px;
+    height: 30px;
+}
+.monasebat{
+    background-color: #e5e5e5;
+    height: 110px;
+}
+
+.font-title{
+    font-size: 12px;
+}
+.tarh-hay-monasebat-akhar{
+        width: 90%;
+}
+
+@media (max-width: 995px) {
+    .akhrin_monasebat{
+        margin-top: 10px;
+    }
+}

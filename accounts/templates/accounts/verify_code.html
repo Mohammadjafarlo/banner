@@ -1,16 +1,66 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container mt-3">
     <h1>ثبت نام</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">ثبت نام</button>
-    </form>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {{ message.tags }}">
-                {{ message }}
+        {% if form.non_field_errors %}
+            <div class="container-fluid pe-2 ps-2">
+                {% for error in form.non_field_errors %}
+                    <div class="mt-2 text-danger">
+                        <i class="bi bi-exclamation-circle d-inline-block"></i>
+                        <span class="error-text">{{ error|safe }}</span>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% endif %}
+        {% endif %}
+        <div class="row">
+            <div class="col-6">
+                <input type="submit" value="ثبت نام" class="btn btn-primary w-100">
+            </div>
+            <div class="col-6" style="position: relative;">
+                <div id="timer-container" class="w-100" style="position: absolute; top: 0; left: 0; width: 100%; height: 43px; border-radius: 1px; display: flex; align-items: center; justify-content: center;">
+                    <span id="timer-text" style="font-size: 20px; font-weight: bold; z-index: 10;">60</span>
+                    <svg id="progress-border" width="100%" height="100%" viewBox="0 0 104 24" style="position: absolute; top: 0; left: 0; z-index: 5;">
+                        <rect x="2" y="2" width="100%" height="20" rx="5" ry="5" fill="none" stroke="#007bff" stroke-width="1" stroke-dasharray="240" stroke-dashoffset="240" style="transition: stroke-dashoffset 1s linear;"></rect>
+                    </svg>
+                </div>
+                <button id="resend-button" style="display: none; width: 100%;" class="btn btn-outline-primary" onclick="window.location.href='{% url 'accounts:resend_verification_code' %}'">ارسال مجدد کد</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Timer functionality
+    let timeLeft = 60;
+    const timerText = document.getElementById('timer-text');
+    const resendButton = document.getElementById('resend-button');
+    const progressBorder = document.querySelector('#progress-border rect');
+    const timercontainer = document.getElementById('timer-container');
+
+    // Set the total length of the border
+    const totalLength = 240; // Perimeter of the rectangle
+    progressBorder.style.strokeDasharray = totalLength;
+    progressBorder.style.strokeDashoffset = totalLength; // Initially empty
+
+    const countdown = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerText.style.display = 'none'; // Hide the timer text
+            timercontainer.style.display = 'none'; // Hide the timer container
+
+            resendButton.style.display = 'inline-block'; // Show the resend button
+            resendButton.style.opacity = '1'; // Fade in the button
+        } else {
+            timerText.textContent = timeLeft; // Update the timer text
+            // Gradually decrease stroke-dashoffset to fill the border
+            const offset = totalLength * (timeLeft / 60); // Increase stroke-dashoffset gradually
+            progressBorder.style.strokeDashoffset = totalLength - offset;
+            timeLeft -= 1;
+        }
+    }, 1000);
+</script>
+
 {% endblock %}

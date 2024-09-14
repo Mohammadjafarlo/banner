@@ -52,11 +52,11 @@ class ImagesForm(forms.ModelForm):
         model = images
         fields = [
             'title', 'shenaseh', 'image_asli', 'image_kham', 'leye_baz', 'to_madah', 'Price_virtual', 'Price_chap',
-            'Scale_x_y', 'x_madah', 'y_madah', 'font_size_madah', 'default_hex_color_madah', 'font_name_madah',
-            'x_sokhanran', 'y_sokhanran', 'font_size_sokhanran', 'default_hex_color_sokhanran', 'font_name_sokhanran',
-            'x_address', 'y_address', 'font_size_addres', 'default_hex_color_address', 'font_name_address', 'x_zamn',
-            'y_zaman', 'font_size_zaman', 'default_hex_color_zaman', 'font_name_zaman', 'x_esmheyat', 'y_esmheyat',
-            'font_size_esmheyat', 'default_hex_color_esmheyat', 'font_name_esmheyat', 'two_madah_True', 'subcategory'
+            'Scale_x_y_madah', 'x_madah', 'y_madah', 'font_size_madah', 'default_hex_color_madah', 'font_name_madah',
+            'Scale_x_y_sokhanran','x_sokhanran', 'y_sokhanran', 'font_size_sokhanran', 'default_hex_color_sokhanran', 'font_name_sokhanran',
+            'x_address', 'y_address', 'font_size_addres', 'default_hex_color_address', 'font_name_address','Scale_x_y_address', 'x_zaman',
+            'y_zaman', 'font_size_zaman', 'default_hex_color_zaman', 'font_name_zaman','Scale_x_y_zaman', 'x_esmheyat', 'y_esmheyat',
+            'font_size_esmheyat', 'default_hex_color_esmheyat', 'font_name_esmheyat','Scale_x_y_esmheyat', 'two_madah_True', 'subcategory'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -94,12 +94,12 @@ class ImagesTwoMadahForm(forms.ModelForm):
         model = imagesTowMadah
         fields = [
             'title', 'shenaseh', 'image_asli', 'image_kham', 'leye_baz', 'Price_virtual', 'Price_chap',
-            'Scale_x_y', 'x_madah', 'y_madah', 'font_size_madah', 'default_hex_color_madah', 'font_name_madah',
-            'x_madah2', 'y_madah2', 'font_size_madah2', 'default_hex_color_madah2', 'font_name_madah2',
-            'x_sokhanran', 'y_sokhanran', 'font_size_sokhanran', 'default_hex_color_sokhanran', 'font_name_sokhanran',
-            'x_address', 'y_address', 'font_size_addres', 'default_hex_color_address', 'font_name_address', 'x_zamn',
-            'y_zaman', 'font_size_zaman', 'default_hex_color_zaman', 'font_name_zaman', 'x_esmheyat', 'y_esmheyat',
-            'font_size_esmheyat', 'default_hex_color_esmheyat', 'font_name_esmheyat','subcategory'
+            'Scale_x_y_madah', 'x_madah', 'y_madah', 'font_size_madah', 'default_hex_color_madah', 'font_name_madah',
+            'x_madah2', 'y_madah2', 'font_size_madah2', 'default_hex_color_madah2', 'font_name_madah2','Scale_x_y_madah2',
+            'x_sokhanran', 'y_sokhanran', 'font_size_sokhanran', 'default_hex_color_sokhanran', 'font_name_sokhanran','Scale_x_y_sokhanran',
+            'x_address', 'y_address', 'font_size_addres', 'default_hex_color_address', 'font_name_address','Scale_x_y_address', 'x_zaman',
+            'y_zaman', 'font_size_zaman', 'default_hex_color_zaman', 'font_name_zaman','Scale_x_y_zaman', 'x_esmheyat', 'y_esmheyat',
+            'font_size_esmheyat', 'default_hex_color_esmheyat', 'font_name_esmheyat','Scale_x_y_esmheyat','subcategory'
         ]
 
 

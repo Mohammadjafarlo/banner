@@ -2,8 +2,17 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import CustomUser
 
+def clean_phone_numbeer(phone_number):
+    phone_number = str(phone_number)
+    if phone_number.startswith('0'):
+        return phone_number[1:]
+    if phone_number.startswith('+98'):
+        return phone_number[3:]
+    return phone_number
+
+
 class UserRegistrationForm(forms.Form):
-    name = forms.CharField(
+    first_name = forms.CharField(
         label='نام',
         max_length=20,
         widget=forms.TextInput(attrs={'class': 'form-control col-6'}),
@@ -44,7 +53,8 @@ class UserRegistrationForm(forms.Form):
         return username
 
     def clean_phone_number(self):
-        phone_number = f'+98{self.cleaned_data.get('phone_number')}'
+        phone_number = self.cleaned_data.get('phone_number')
+        phone_number = f'+98{clean_phone_numbeer(phone_number)}'
         if CustomUser.objects.filter(phone_number=phone_number).exists():
             raise ValidationError('این شماره تلفن تکراری است')
         return phone_number
@@ -92,6 +102,17 @@ class UserLoginForm(forms.Form):
     )
 
 
+class ForgotPasswordForm(forms.Form):
+    phone_number = forms.IntegerField(
+        label=' شماره تلفن شما : ',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'oninput':"handleInputChange(event)",'id':"number",}),
+        error_messages={'required': 'شماره تلفن اجباریست'}
+    )
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        phone_number = f'+98{clean_phone_numbeer(phone_number)}'
+        return phone_number
+
 class CustomUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -103,3 +124,30 @@ class CustomUserForm(forms.ModelForm):
             'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
 
+class VerificationCodeResetPassForm(forms.Form):
+    code = forms.IntegerField(
+        label='کد تایید',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کد پیامک شده'}),
+        error_messages={'required': 'کد تایید الزامی است'}
+    )
+    password = forms.CharField(
+        label='ایجاد رمز عبور جدید',
+        widget=forms.PasswordInput(attrs={'placeholder': '.....', 'class': 'form-control'}),
+        error_messages={'required': 'رمز عبور اجباری است'}
+    )
+    password1 = forms.CharField(
+        label='تکرار رمز عبور',
+        widget=forms.PasswordInput(attrs={'placeholder': '.....', 'class': 'form-control'}),
+        error_messages={'required': 'تکرار رمز عبور اجباری است'}
+    )
+    def clean(self):
+        cleaned_data = super().clean()
+        p1 = cleaned_data.get('password')
+        p2 = cleaned_data.get('password1')
+
+        if p1 and p2:
+            if p1 != p2:
+                self.add_error('password1', 'رمز ها باید یکی باشند')
+            if len(p1) < 6:
+                self.add_error('password', 'رمز عبور باید حداقل ۶ کاراکتر باشد')
+        return cleaned_data

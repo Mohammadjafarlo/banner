@@ -1,0 +1,48 @@
+ror(request, 'پرداخت ناموفق بود. لطفاً دوباره تلاش کنید.', 'error')
+            return redirect('home:banner_list')
+
+
+تمپلیت ها :
+reset_pass.html
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5 text-center ">
+        <form method="post" action="">
+            {% csrf_token %}
+{% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="mb-3 d-inline-block ">{{ field.label }}</label>
+                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-sm-9 col-10 m-auto">
+                          <div class="input-group " style="" dir="ltr">
+
+
+                            <span class="input-group-text">+98</span>
+                        {{ field }}
+                              <input  class="btn btn-outline-primary" type="submit" id="button-addon2" value="تایید">
+
+                          </div>
+
+                    {% if field.errors %}
+                        <div class="mt-2 text-danger">
+                            <i class="bi bi-exclamation-circle d-inline-block"></i>
+                            <span class="error-text">{{ field.errors|safe }}</span>
+                        </div>
+                    {% endif %}
+                            </div>
+                </div>
+            {% endfor %}
+                    {% if form.non_field_errors %}
+            <div class="container-fluid pe-2 ps-2">
+                {% for error in form.non_field_errors %}
+                    <div class="mt-2 text-danger">
+                        <i class="bi bi-exclamation-circle d-inline-block"></i>
+                        <span class="error-text">{{ error|safe }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+            </form>
+    </div>
+
+{% endblock %}

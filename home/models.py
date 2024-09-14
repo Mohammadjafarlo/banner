@@ -122,8 +122,6 @@ MONASEBAT_CHOICES2 = [
 class tarh_hay_akhrin_monasebat(models.Model):
     image = models.ImageField(upload_to=RenameRandomFile('image_last_monasebat/'))
 
-class Vitrin_home(models.Model):
-    image = models.ImageField(upload_to=RenameRandomFile('vitrin/'))
 
 
 class Category(models.Model):
@@ -139,6 +137,10 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return f"{self .name} - {self.category.title}"
+
+class Vitrin_home(models.Model):
+    image = models.ImageField(upload_to=RenameRandomFile('vitrin/'))
+    sub_category = models.ForeignKey(SubCategory , on_delete=models.CASCADE, related_name='subcategories' , null=True)
 
 
 class monasebat_hay_bazdik(models.Model):
@@ -165,36 +167,42 @@ class imagesTowMadah(models.Model):
     Price_virtual = models.DecimalField(max_digits=7, decimal_places=0, default=300000)
     Price_chap = models.DecimalField(max_digits=7, decimal_places=0, default=700000)
 
-    Scale_x_y = models.CharField(max_length=7, choices=(('center', 'center'), ('right', 'right')), default='center')
+    Scale_x_y_madah = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_madah = models.CharField(max_length=10, default='center')
     y_madah = models.IntegerField(default=10)
     font_size_madah = models.IntegerField(default=10)
     default_hex_color_madah = models.CharField(max_length=8, default='#ffffff')
     font_name_madah = models.CharField(max_length=20, choices=font_chois, default='B titr')
 
+
+    Scale_x_y_madah2 = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_madah2 = models.CharField(max_length=10, default='center')
     y_madah2 = models.IntegerField(default=10)
     font_size_madah2 = models.IntegerField(default=10)
     default_hex_color_madah2 = models.CharField(max_length=8, default='#ffffff')
     font_name_madah2 = models.CharField(max_length=20, choices=font_chois, default='B titr')
 
+    Scale_x_y_sokhanran = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_sokhanran = models.CharField(max_length=10, default='center')
     y_sokhanran = models.IntegerField(default=10)
     font_size_sokhanran = models.IntegerField(default=10)
     default_hex_color_sokhanran = models.CharField(max_length=8, default='#ffffff')
     font_name_sokhanran = models.CharField(max_length=20, choices=font_chois, default='B titr')
 
+    Scale_x_y_address = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_address = models.CharField(max_length=10, default='center')
     y_address = models.IntegerField()
     font_size_addres = models.IntegerField(default=10)
     default_hex_color_address = models.CharField(max_length=8, default='#ffffff')
     font_name_address = models.CharField(max_length=20, choices=font_chois, default='B titr')
 
-    x_zamn = models.CharField(max_length=10, default='center')
+    Scale_x_y_zaman = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
+    x_zaman = models.CharField(max_length=10, default='center')
     y_zaman = models.IntegerField()
     font_size_zaman = models.IntegerField(default=10)
     default_hex_color_zaman = models.CharField(max_length=8, default='#ffffff')
     font_name_zaman = models.CharField(max_length=20, choices=font_chois, default='B titr')
+
 
     x_esmheyat = models.CharField(max_length=10, default='center')
     y_esmheyat = models.IntegerField()
@@ -202,9 +210,10 @@ class imagesTowMadah(models.Model):
     default_hex_color_esmheyat = models.CharField(max_length=8, default='#ffffff')
     font_name_esmheyat = models.CharField(max_length=20, choices=font_chois, default='B titr')
 
+    Scale_x_y_esmheyat = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='products', null=True)
     created_at = models.DateTimeField(default=timezone.now)
-    created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='createdT', null=True)
+    created_py = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='createdT', null=True)
     def __str__(self):
         return f'{self.title} - {self.shenaseh}'
 
@@ -227,33 +236,35 @@ class images(models.Model):
     Price_virtual = models.DecimalField(max_digits=7, decimal_places=0 , default=300000)
     Price_chap = models.DecimalField(max_digits=7, decimal_places=0 , default=700000)
 
-    Scale_x_y = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right')),default='center')
+    Scale_x_y_madah = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_madah = models.CharField(max_length=10, default='center')
     y_madah = models.IntegerField(default=10)
     font_size_madah = models.IntegerField(default=10)
     default_hex_color_madah = models.CharField(max_length=8, default='#ffffff')
     font_name_madah = models.CharField(max_length=20,choices=font_chois,default='B titr')
 
+    Scale_x_y_sokhanran = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_sokhanran = models.CharField(max_length=10, default='center')
     y_sokhanran = models.IntegerField(default=10)
     font_size_sokhanran = models.IntegerField(default=10)
     default_hex_color_sokhanran = models.CharField(max_length=8, default='#ffffff')
     font_name_sokhanran = models.CharField(max_length=20,choices=font_chois,default='B titr')
 
-
+    Scale_x_y_address = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_address = models.CharField(max_length=10, default='center')
     y_address = models.IntegerField()
     font_size_addres = models.IntegerField(default=10)
     default_hex_color_address = models.CharField(max_length=8, default='#ffffff')
     font_name_address = models.CharField(max_length=20,choices=font_chois,default='B titr')
 
-
-    x_zamn = models.CharField(max_length=10, default='center')
+    Scale_x_y_zaman = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
+    x_zaman = models.CharField(max_length=10, default='center')
     y_zaman = models.IntegerField()
     font_size_zaman = models.IntegerField(default=10)
     default_hex_color_zaman = models.CharField(max_length=8, default='#ffffff')
     font_name_zaman = models.CharField(max_length=20,choices=font_chois,default='B titr')
 
+    Scale_x_y_esmheyat = models.CharField(max_length=7,choices=(('center', 'center'),('right', 'right'),('left','left')),default='center')
     x_esmheyat = models.CharField(max_length=10, default='center')
     y_esmheyat = models.IntegerField()
     font_size_esmheyat = models.IntegerField(default=10)
@@ -265,7 +276,7 @@ class images(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='productsTwo',null=True)
 
-    created = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE , related_name='created',null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE , related_name='created',null=True)
 
     def save(self, *args, **kwargs):
         # اطمینان از عدم ذخیره کردن فیلد در زمانی که نباید باشد

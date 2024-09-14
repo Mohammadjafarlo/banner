@@ -98,7 +98,12 @@ class ImagesView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # ذخیره نکردن فرم بلافاصله و دریافت شیء مربوطه
+            image_instance = form.save(commit=False)
+            # تنظیم فیلد created_by به کاربر لاگین شده
+            image_instance.created_by = request.user
+            # ذخیره نهایی شیء
+            image_instance.save()
             return redirect(self.success_url)
         return render(request, self.template_name, {'form': form})
 
@@ -121,8 +126,12 @@ class ImagesTwoMadahView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-
-            form.save()
+            # ذخیره نکردن فرم بلافاصله و دریافت شیء مربوطه
+            image_instance = form.save(commit=False)
+            # تنظیم فیلد created_by به کاربر لاگین شده
+            image_instance.created_by = request.user
+            # ذخیره نهایی شیء
+            image_instance.save()
             messages.success(request, 'عکس با موفقیت ذخیره شد')
             return redirect(self.success_url)
 

@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block head %}
+<style>
+    .profile_img {
+        width: 150px; /* عرض ثابت برای مربع */
+        height: 150px; /* ارتفاع ثابت برای مربع */
+        object-fit: cover; /* برش مناسب تصویر */
+        border-radius: 0; /* حذف گردی */
+        margin:auto;
+        margin-top:10px;
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4 text-center">
             <!-- بخش تصویر پروفایل -->
             <div class="card mb-4">
-                 <img src="{% static 'profile_image/'|add:user.profile_picture %}" class="card-img-top rounded-circle" alt="Profile Picture">
+                 <img src="/media/{{ user.profile_picture }}" class="card-img-top profile_img" style="border-radius : 100%" alt="Profile Picture">
                 <div class="card-body">
                     <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
                     <p class="card-text">{{ user.username }}</p>
@@ -36,13 +48,15 @@
     </div>
     <hr>
     <div class="row">
+        {% if not object %}
+        {% else %}
     <h1 class="mb-5">اثر های شما</h1>
                  {% for object in objects %}
                      <div class="col-3">
               <img src="../../static/images_asli/{{ object.shenaseh }}.jpg" alt="" class="rounded-3         border-2 border border-secondary" width="100%">
                      </div>
                 {% endfor %}
-
+        {% endif %}
     </div>
 </div>
 {% endblock %}

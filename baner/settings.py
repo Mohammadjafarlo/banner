@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-o1$)h%af_s^s7xrx+bqw#n2ejv+^5j+6ra2jj&rmk*8sx(mzrn'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -118,7 +118,8 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
-STATIC_URL = 'https://mohammadjafarlo.github.io/GhadirGraphStatics/'
+#STATIC_URL = 'https://mohammadjafarlo.github.io/GhadirGraphStatics/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR/'static',
@@ -133,7 +134,4 @@ LOGIN_URL = '/account/login/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.authenticate.PhoneBackend',
-
-
 ]

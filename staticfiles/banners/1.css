@@ -1,0 +1,40 @@
+body {
+background-image: linear-gradient(to bottom, #c1c1c1, #b9afd7, #b69ae8, #b982f5, #c163fd, #cb52fc, #d63bf9, #e107f5, #ea12ee, #f21ce7, #f926e1, #ff30db);    height: 100vh; /* تضمین می‌کند که محتوای داخل central-body در مرکز صفحه قرار گیرد */
+}
+
+.central-body {
+    text-align: center;
+
+}
+
+.image-404 {
+    width: 400px;
+    max-width: 100%;
+    height: auto; /* تضمین می‌کند که تصویر متناسب با عرض صفحه باشد */
+    display:block;
+    margin: auto;
+    margin-top: 110px;
+}
+
+.btn-go-home {
+    padding: 10px 15px;
+    border: 1px solid #c739ff;
+    border-radius: 100px;
+    font-weight: 400;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 15px;
+    background-color: transparent;
+    transition: all 0.3s ease-in;
+    margin-top: 20px; /* فاصله میان تصویر و دکمه */
+}
+
+.btn-go-home:hover {
+    background-color: #9239ff;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
+}

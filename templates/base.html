@@ -26,10 +26,30 @@
     <style>
 
         @font-face {
-            font-family: yakan;
-            font-style: normal;
-            font-weight:bold;
-            src: url(https://mohammadjafarlo.github.io/GhadirGraphStatics/font/Yekan.ttf) format('truetype');
+         font-family: Vazir;
+         font-style: normal;
+         font-weight: normal;
+         src: url({% static 'fonts/Vazir.eot' %});
+         src: url({% static 'fonts/Vazir.eot?#iefix' %}) format('embedded-opentype'),
+         url({% static 'fonts/Vazir.woff2' %}) format('woff2'),
+         url({% static 'fonts/Vazir.woff' %}) format('woff'),
+         url({% static 'fonts/Vazir.ttf' %}) format('truetype');
+        }
+        @font-face {
+         font-family: Vazir;
+         font-style: normal;
+         font-weight: bold;
+         src: url({% static 'fonts/Vazir-Bold.eot' %});
+         src: url({% static 'fonts/Vazir-Bold.eot?#iefix' %}) format('embedded-opentype'),
+         url({% static 'fonts/Vazir-Bold.woff2' %}) format('woff2'),
+         url({% static 'fonts/Vazir-Bold.woff' %}) format('woff'),
+         url({% static 'fonts/Vazir-Bold.ttf' %}) format('truetype');
+        }
+         
+         
+        body{
+        font-family: 'Vazir', Arial, sans-serif;
+        font-weight:normal;
         }
         @font-face {
             font-family: Nastaliq;
@@ -37,10 +57,7 @@
             font-weight:bold;
             src: url({% static 'font/Iran.Nastaliq.1.0.ttf' %}) format('truetype');
         }
-        body, h3, a, html {
-            font-family: 'yakan', Arial, sans-serif;
-            font-weight: normal;
-        }
+
     </style>
 </head>
 <body dir="rtl">
@@ -123,9 +140,10 @@
         {% endif %}
 {% endfor %}
 {% endif %}
-
+<div class="p-1">
 {% block content %}
 {% endblock %}
+</div>
         <button id="modal" style="display: none" data-bs-toggle="modal" data-bs-target="#myModal"></button>
     <script>
         window.onload = function() {
